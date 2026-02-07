@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshMarket - Grocery Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --secondary: #3b82f6;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius);
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            border-radius: 0 0 var(--radius) var(--radius);
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .bg-primary-light { background-color: #d1fae5; color: var(--primary); }
+        .bg-secondary-light { background-color: #dbeafe; color: var(--secondary); }
+        .bg-warning-light { background-color: #fef3c7; color: var(--warning); }
+        .bg-danger-light { background-color: #fee2e2; color: var(--danger); }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Tables */
+        .table-container {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background-color: #f9fafb;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        tr:hover {
+            background-color: #f9fafb;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-active { background-color: #d1fae5; color: var(--success); }
+        .status-pending { background-color: #fef3c7; color: var(--warning); }
+        .status-suspended { background-color: #fee2e2; color: var(--danger); }
+
+        /* Forms */
+        .form-container {
+            max-width: 500px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        /* Demo Login Section */
+        .demo-login {
+            background: #f0f9ff;
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .demo-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Role Selection */
+        .role-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .role-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .role-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .role-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .demo-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Shop Grid */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .shop-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .shop-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .shop-image {
+            height: 200px;
+            background: linear-gradient(45deg, #10b981, #3b82f6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .shop-info {
+            padding: 1.5rem;
+        }
+
+        /* Product Cards */
+        .product-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .product-image {
+            height: 150px;
+            background: linear-gradient(45deg, #f59e0b, #ef4444);
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        /* Cart */
+        .cart-items {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin: 2rem 0;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e5e7eb;
+            margin: 2rem 0;
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar container">
+            <a href="#" class="logo">
+                <i class="fas fa-shopping-cart"></i>
+                FreshMarket
+            </a>
+            <ul class="nav-links">
+                <li><a href="#dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="#shops"><i class="fas fa-store"></i> Shops</a></li>
+                <li><a href="#products"><i class="fas fa-box"></i> Products</a></li>
+                <li><a href="#orders"><i class="fas fa-shopping-bag"></i> Orders</a></li>
+                <li><a href="#analytics"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+            <div class="user-menu">
+                <span id="userRoleDisplay">Admin</span>
+                <button class="btn btn-outline" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <h1>Welcome to FreshMarket</h1>
+            <p>Your one-stop grocery marketplace connecting customers with local shops</p>
+            <div class="demo-login" id="loginSection">
+                <h3>Quick Demo Login</h3>
+                <p>Try out different user roles:</p>
+                <div class="demo-buttons">
+                    <button class="btn btn-primary" onclick="loginAsAdmin()">
+                        <i class="fas fa-user-shield"></i> Login as Admin
+                    </button>
+                    <button class="btn btn-secondary" onclick="loginAsShopOwner()">
+                        <i class="fas fa-store"></i> Login as Shop Owner
+                    </button>
+                    <button class="btn btn-outline" onclick="loginAsCustomer()">
+                        <i class="fas fa-user"></i> Login as Customer
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tabs for different views -->
+        <div class="tabs" id="tabsContainer">
+            <div class="tab active" onclick="showTab('dashboard')">Dashboard</div>
+            <div class="tab" onclick="showTab('shops')">Shops</div>
+            <div class="tab" onclick="showTab('products')">Products</div>
+            <div class="tab" onclick="showTab('orders')">Orders</div>
+            <div class="tab" onclick="showTab('analytics')">Analytics</div>
+            <div class="tab" onclick="showTab('users')">Users</div>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <h2>Dashboard Overview</h2>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Total Revenue</h3>
+                        <div class="card-icon bg-primary-light">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="stat-number">R 245,680</div>
+                    <div class="stat-label">+12% from last month</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Active Shops</h3>
+                        <div class="card-icon bg-secondary-light">
+                            <i class="fas fa-store"></i>
+                        </div>
+                    </div>
+                    <div class="stat-number">42</div>
+                    <div class="stat-label">+3 new this week</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Total Orders</h3>
+                        <div class="card-icon bg-warning-light">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                    </div>
+                    <div class="stat-number">1,245</div>
+                    <div class="stat-label">98% completion rate</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Active Customers</h3>
+                        <div class="card-icon bg-danger-light">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="stat-number">892</div>
+                    <div class="stat-label">+45 this week</div>
+                </div>
+            </div>
+
+            <!-- Recent Orders Table -->
+            <div class="table-container">
+                <h3>Recent Orders</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Shop</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentOrdersTable">
+                        <!-- Filled by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Shops Tab -->
+        <div id="shops" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2>Shop Management</h2>
+                <button class="btn btn-primary" onclick="showAddShopModal()">
+                    <i class="fas fa-plus"></i> Add New Shop
+                </button>
+            </div>
+            <div class="shop-grid" id="shopsGrid">
+                <!-- Filled by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Products Tab -->
+        <div id="products" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2>Product Management</h2>
+                <button class="btn btn-primary" onclick="showAddProductModal()">
+                    <i class="fas fa-plus"></i> Add New Product
+                </button>
+            </div>
+            <div class="dashboard-grid" id="productsGrid">
+                <!-- Filled by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Orders Tab -->
+        <div id="orders" class="tab-content">
+            <h2>Order Management</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTable">
+                        <!-- Filled by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div id="analytics" class="tab-content">
+            <h2>Analytics Dashboard</h2>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>Revenue Trend</h3>
+                    <div id="revenueChart" style="height: 200px; background: #f3f4f6; border-radius: var(--radius); display: flex; align-items: center; justify-content: center;">
+                        Chart will be displayed here
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Top Products</h3>
+                    <ul id="topProductsList" style="list-style: none; padding: 0;">
+                        <!-- Filled by JavaScript -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Tab -->
+        <div id="users" class="tab-content">
+            <h2>User Management</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Join Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTable">
+                        <!-- Filled by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Role Selection (for new users) -->
+        <section id="roleSelection" style="display: none;">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Select Your Role</h2>
+            <div class="role-selection">
+                <div class="role-card" onclick="selectRole('admin')">
+                    <div class="role-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Administrator</h3>
+                    <p>Manage platform, oversee shops, view analytics</p>
+                    <button class="btn btn-primary" style="margin-top: 1rem;">Select</button>
+                </div>
+                <div class="role-card" onclick="selectRole('shop_owner')">
+                    <div class="role-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Shop Owner</h3>
+                    <p>Manage products, process orders, view shop analytics</p>
+                    <button class="btn btn-secondary" style="margin-top: 1rem;">Select</button>
+                </div>
+                <div class="role-card" onclick="selectRole('customer')">
+                    <div class="role-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Customer</h3>
+                    <p>Browse shops, purchase products, track orders</p>
+                    <button class="btn btn-outline" style="margin-top: 1rem;">Select</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>FreshMarket</h3>
+                <p>Connecting customers with local grocery stores for a seamless shopping experience.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#shops">Shops</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#orders">Orders</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-envelope"></i> support@freshmarket.com</li>
+                    <li><i class="fas fa-phone"></i> +27 21 123 4567</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Cape Town, South Africa</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Application State
+        let currentUser = null;
+        let currentRole = 'admin';
+        let shops = [];
+        let products = [];
+        let orders = [];
+        let users = [];
+
+        // Demo Data
+        const demoData = {
+            shops: [
+                { id: 1, name: "Fresh Grocers", owner: "John Doe", products: 45, orders: 120, revenue: 45000, status: "active", rating: 4.5 },
+                { id: 2, name: "Green Market", owner: "Sarah Smith", products: 32, orders: 85, revenue: 32000, status: "active", rating: 4.2 },
+                { id: 3, name: "Organic Foods", owner: "Mike Johnson", products: 28, orders: 65, revenue: 28000, status: "pending", rating: 4.7 },
+                { id: 4, name: "Quick Mart", owner: "Emma Wilson", products: 56, orders: 210, revenue: 85000, status: "active", rating: 4.1 },
+            ],
+            products: [
+                { id: 1, name: "Fresh Apples", shop: "Fresh Grocers", category: "Fruits", price: 25.99, stock: 45, unit: "kg" },
+                { id: 2, name: "Whole Wheat Bread", shop: "Green Market", category: "Bakery", price: 19.99, stock: 120, unit: "loaf" },
+                { id: 3, name: "Organic Milk", shop: "Organic Foods", category: "Dairy", price: 32.50, stock: 65, unit: "l" },
+                { id: 4, name: "Free-range Eggs", shop: "Quick Mart", category: "Poultry", price: 45.99, stock: 89, unit: "dozen" },
+            ],
+            orders: [
+                { id: "ORD-001", customer: "Sarah Johnson", shop: "Fresh Grocers", items: 3, total: 245.50, status: "completed", date: "2024-02-15" },
+                { id: "ORD-002", customer: "David Wilson", shop: "Green Market", items: 5, total: 389.75, status: "processing", date: "2024-02-16" },
+                { id: "ORD-003", customer: "Lisa Brown", shop: "Organic Foods", items: 2, total: 128.25, status: "pending", date: "2024-02-16" },
+                { id: "ORD-004", customer: "Tom Clark", shop: "Quick Mart", items: 7, total: 542.30, status: "completed", date: "2024-02-14" },
+            ],
+            users: [
+                { id: 1, name: "Admin User", email: "admin@freshmarket.com", role: "admin", status: "active", joined: "2024-01-15" },
+                { id: 2, name: "John Doe", email: "john@fresh.com", role: "shop_owner", status: "active", joined: "2024-01-20" },
+                { id: 3, name: "Sarah Johnson", email: "sarah.johnson@email.com", role: "customer", status: "active", joined: "2024-01-25" },
+            ]
+        };
+
+        // Initialize application
+        function initApp() {
+            shops = demoData.shops;
+            products = demoData.products;
+            orders = demoData.orders;
+            users = demoData.users;
+            
+            updateDashboard();
+            loadShops();
+            loadProducts();
+            loadOrders();
+            loadUsers();
+            loadAnalytics();
+        }
+
+        // Tab Navigation
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Update active tab header
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Login Functions
+        function loginAsAdmin() {
+            currentRole = 'admin';
+            currentUser = demoData.users[0];
+            updateUIForRole();
+            showTab('dashboard');
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('roleSelection').style.display = 'none';
+            document.getElementById('userRoleDisplay').textContent = 'Admin';
+        }
+
+        function loginAsShopOwner() {
+            currentRole = 'shop_owner';
+            currentUser = demoData.users[1];
+            updateUIForRole();
+            showTab('dashboard');
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('roleSelection').style.display = 'none';
+            document.getElementById('userRoleDisplay').textContent = 'Shop Owner';
+        }
+
+        function loginAsCustomer() {
+            currentRole = 'customer';
+            currentUser = demoData.users[2];
+            updateUIForRole();
+            showTab('dashboard');
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('roleSelection').style.display = 'none';
+            document.getElementById('userRoleDisplay').textContent = 'Customer';
+        }
+
+        function logout() {
+            currentUser = null;
+            currentRole = null;
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('userRoleDisplay').textContent = 'Guest';
+            showTab('dashboard');
+        }
+
+        function selectRole(role) {
+            if (role === 'admin') loginAsAdmin();
+            else if (role === 'shop_owner') loginAsShopOwner();
+            else if (role === 'customer') loginAsCustomer();
+        }
+
+        // Update UI based on role
+        function updateUIForRole() {
+            const tabs = document.querySelectorAll('.tab');
+            const shopBtn = document.querySelector('[onclick="showAddShopModal()"]');
+            const productBtn = document.querySelector('[onclick="showAddProductModal()"]');
+            
+            if (currentRole === 'customer') {
+                tabs.forEach((tab, index) => {
+                    if (index > 3) tab.style.display = 'none';
+                });
+                if (shopBtn) shopBtn.style.display = 'none';
+                if (productBtn) productBtn.style.display = 'none';
+            } else if (currentRole === 'shop_owner') {
+                tabs[5].style.display = 'none'; // Hide Users tab
+                if (shopBtn) shopBtn.style.display = 'none';
+            }
+        }
+
+        // Load data functions
+        function updateDashboard() {
+            const tableBody = document.getElementById('recentOrdersTable');
+            tableBody.innerHTML = '';
+            
+            orders.slice(0, 5).forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.id}</td>
+                    <td>${order.customer}</td>
+                    <td>${order.shop}</td>
+                    <td>R ${order.total.toFixed(2)}</td>
+                    <td><span class="status-badge status-${order.status}">${order.status}</span></td>
+                    <td>${order.date}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function loadShops() {
+            const shopsGrid = document.getElementById('shopsGrid');
+            shopsGrid.innerHTML = '';
+            
+            shops.forEach(shop => {
+                const shopCard = document.createElement('div');
+                shopCard.className = 'shop-card';
+                shopCard.innerHTML = `
+                    <div class="shop-image">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="shop-info">
+                        <h3>${shop.name}</h3>
+                        <p><i class="fas fa-user"></i> ${shop.owner}</p>
+                        <p><i class="fas fa-box"></i> ${shop.products} Products</p>
+                        <p><i class="fas fa-shopping-bag"></i> ${shop.orders} Orders</p>
+                        <p><i class="fas fa-chart-line"></i> R ${shop.revenue.toLocaleString()}</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                            <span class="status-badge status-${shop.status}">${shop.status}</span>
+                            <span><i class="fas fa-star"></i> ${shop.rating}</span>
+                        </div>
+                    </div>
+                `;
+                shopsGrid.appendChild(shopCard);
+            });
+        }
+
+        function loadProducts() {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'card';
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        <i class="fas ${getProductIcon(product.category)}"></i>
+                    </div>
+                    <h3>${product.name}</h3>
+                    <p><strong>Shop:</strong> ${product.shop}</p>
+                    <p><strong>Category:</strong> ${product.category}</p>
+                    <p><strong>Price:</strong> R ${product.price.toFixed(2)} / ${product.unit}</p>
+                    <p><strong>Stock:</strong> ${product.stock} units</p>
+                    <div style="margin-top: 1rem;">
+                        <button class="btn btn-primary" style="margin-right: 0.5rem;">Edit</button>
+                        <button class="btn btn-outline">Delete</button>
+                    </div>
+                `;
+                productsGrid.appendChild(productCard);
+            });
+        }
+
+        function loadOrders() {
+            const ordersTable = document.getElementById('ordersTable');
+            ordersTable.innerHTML = '';
+            
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.id}</td>
+                    <td>${order.customer}</td>
+                    <td>${order.items} items</td>
+                    <td>R ${order.total.toFixed(2)}</td>
+                    <td><span class="status-badge status-${order.status}">${order.status}</span></td>
+                    <td>
+                        <button class="btn btn-primary" style="padding: 0.25rem 0.5rem; margin-right: 0.5rem;">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-outline" style="padding: 0.25rem 0.5rem;">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                `;
+                ordersTable.appendChild(row);
+            });
+        }
+
+        function loadUsers() {
+            const usersTable = document.getElementById('usersTable');
+            usersTable.innerHTML = '';
+            
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td><span class="status-badge status-active">${user.role}</span></td>
+                    <td><span class="status-badge status-active">${user.status}</span></td>
+                    <td>${user.joined}</td>
+                    <td>
+                        <button class="btn btn-outline" style="padding: 0.25rem 0.5rem;">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                    </td>
+                `;
+                usersTable.appendChild(row);
+            });
+        }
+
+        function loadAnalytics() {
+            const topProductsList = document.getElementById('topProductsList');
+            topProductsList.innerHTML = '';
+            
+            products.slice(0, 5).forEach(product => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>${product.name}</span>
+                        <strong>R ${product.price.toFixed(2)}</strong>
+                    </div>
+                `;
+                topProductsList.appendChild(li);
+            });
+        }
+
+        function getProductIcon(category) {
+            const icons = {
+                'Fruits': 'fa-apple-alt',
+                'Bakery': 'fa-bread-slice',
+                'Dairy': 'fa-cheese',
+                'Poultry': 'fa-egg',
+                'Vegetables': 'fa-carrot',
+                'Beverages': 'fa-wine-bottle',
+                'Meat': 'fa-drumstick-bite',
+                'Snacks': 'fa-cookie'
+            };
+            return icons[category] || 'fa-box';
+        }
+
+        // Modal functions
+        function showAddShopModal() {
+            alert('Add Shop modal would open here. This would connect to backend API.');
+            // In real implementation, this would show a modal form
+        }
+
+        function showAddProductModal() {
+            alert('Add Product modal would open here. This would connect to backend API.');
+            // In real implementation, this would show a modal form
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
